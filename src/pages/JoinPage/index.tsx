@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import style from "./style.module.scss";
 import { getJobOpenings } from "../../contentful.ts";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import JobOpening from "../../components/JobOpening";
 
 export default function JoinPage() {
@@ -104,6 +104,17 @@ export default function JoinPage() {
               </div>
             )}
 
+
+            <div className={style["apply-button-container"]}>
+              <a
+                href={'https://forms.gle/8uohgm8iK1X5TYot6'}
+                className={style["job-opening__apply-button"]}
+                target="_blank"
+              >
+                Inscribirse
+              </a>
+            </div>
+
             {!loading && !error && jobOpenings.length > 0 && (
               <>
                 <div className={style["subgroup-filter"]}>
@@ -114,7 +125,7 @@ export default function JoinPage() {
                       }`}
                       onClick={() => setSelectedSubgroup("all")}
                     >
-                      All Positions
+                      Todas las posiciones
                     </button>
                     {subgroups.map((subgroup, index) => (
                       <button
