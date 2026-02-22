@@ -13,6 +13,7 @@ import TimelinePage from "./pages/TimelinePage";
 import { DashboardPage } from "./pages/DashboardPage";
 import JoinPage from "./pages/JoinPage";
 import JobOpeningDetailPage from "./pages/JobOpeningDetailPage";
+import NetworkingPage from "./pages/NetworkingPage";
 import ResearchPage from "./pages/ResearchPage";
 import "./i18n/config";
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
         element: <JobOpeningDetailPage />,
         path: "/join/:slug",
       },
+      {
+        element: <NetworkingPage />,
+        path: "/networking",
+      }
     ],
   },
   {
