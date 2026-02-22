@@ -5,6 +5,26 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import NetworkingCard from "../../components/Networkings/index.tsx";
 
+import station01 from "../../assets/icons/station-01.png";
+import station02 from "../../assets/icons/station-02.png";
+import station03 from "../../assets/icons/station-03.png";
+import station04 from "../../assets/icons/station-04.png";
+import station05 from "../../assets/icons/station-05.png";
+import station06 from "../../assets/icons/station-06.png";
+import station07 from "../../assets/icons/station-07.png";
+import station08 from "../../assets/icons/station-08.png";
+
+const STATION_ICONS: Record<string, string> = {
+  "01": station01,
+  "02": station02,
+  "03": station03,
+  "04": station04,
+  "05": station05,
+  "06": station06,
+  "07": station07,
+  "08": station08,
+};
+
 const STATION_IDS = ["01", "02", "03", "04", "05", "06", "07", "08"];
 
 export default function NetworkingPage() {
@@ -197,7 +217,7 @@ export default function NetworkingPage() {
               {STATION_IDS.map((id) => (
                 <div key={id} className={style["carousel__slide"]}>
                   <img
-                    src={`/src/assets/icons/station-${id}.png`}
+                    src={STATION_ICONS[id]}
                     alt={`Station ${id}`}
                     className={style["carousel__image"]}
                   />
