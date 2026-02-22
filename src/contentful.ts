@@ -112,7 +112,7 @@ export const getPartnersData = async () => {
         "Processing partner:",
         partner.fields.name,
         "with tierId:",
-        tierId
+        tierId,
       );
       console.log(partner);
 
@@ -159,6 +159,39 @@ export const getPartnersData = async () => {
     return result;
   } catch (error) {
     console.error("Error fetching partners data:", error);
+    throw error;
+  }
+};
+
+export const getNetworkings = async () => {
+  try {
+    const response = await client.getEntries({
+      content_type: "networking",
+      include: 2,
+      order: ["-fields.date"],
+    });
+    return response.items;
+  } catch (error) {
+    console.error("Error fetching networkings:", error);
+    throw error;
+  }
+};
+
+export const getNetworkingBySlug = async (slug: string) => {
+  try {
+    const response = await client.getEntries({
+      content_type: "networking",
+      "fields.slug": slug,
+      include: 2,
+    });
+
+    if (response.items.length > 0) {
+      return response.items[0];
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error fetching networking by slug:", error);
     throw error;
   }
 };
