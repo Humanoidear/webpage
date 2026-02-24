@@ -90,6 +90,21 @@ export default function NetworkingPage() {
   const mostRecent = networkings.length > 0 ? networkings[0] : null;
   const pastNetworkings = networkings.slice(1);
 
+  const carouselTrackRef = useRef<HTMLDivElement>(null);
+
+  const scrollCarousel = useCallback((direction: "left" | "right") => {
+    const track = carouselTrackRef.current;
+    if (!track) return;
+    const slideWidth = track.querySelector<HTMLElement>(
+      `.${style["carousel__slide"]}`
+    )?.offsetWidth ?? 340;
+    const scrollAmount = slideWidth + 32; // slide width + gap
+    track.scrollBy({
+      left: direction === "right" ? scrollAmount : -scrollAmount,
+      behavior: "smooth",
+    });
+  }, []);
+
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString(undefined, {
@@ -213,7 +228,16 @@ export default function NetworkingPage() {
             {t("stations-title")}
           </h2>
           <div className={style["carousel"]}>
-            <div className={style["carousel__track"]}>
+            <button
+              className={`${style["carousel__btn"]} ${style["carousel__btn--left"]}`}
+              onClick={() => scrollCarousel("left")}
+              aria-label="Scroll left"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <div className={style["carousel__track"]} ref={carouselTrackRef}>
               {STATION_IDS.map((id) => (
                 <div key={id} className={style["carousel__slide"]}>
                   <img
@@ -236,6 +260,15 @@ export default function NetworkingPage() {
                 </div>
               ))}
             </div>
+            <button
+              className={`${style["carousel__btn"]} ${style["carousel__btn--right"]}`}
+              onClick={() => scrollCarousel("right")}
+              aria-label="Scroll right"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
           </div>
         </div>
       )}
